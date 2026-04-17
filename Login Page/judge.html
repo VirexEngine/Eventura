@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Judge Diary Desktop</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+<link rel="stylesheet" href="judge.css">
+</head>
+<body class="judge-bg">
+
+<div class="os-bar" style="max-width:800px; margin:0 auto 20px;">
+  <div class="os-brand">
+    <div class="os-logo" style="background: linear-gradient(135deg, #F06543 0%, #FFB142 100%);"><span class="material-icons-round">gavel</span></div>
+    <div class="os-name">Judge's Diary <span>v1.0</span></div>
+  </div>
+  <button class="logout-btn" id="logoutBtn">Logout</button>
+</div>
+
+<div class="judge-container" id="mainContainer" style="display:none;">
+    
+    <!-- Header Stats -->
+    <div class="stats-bar">
+        <div class="stat-bl">
+            <span class="m">Progress</span>
+            <div class="v"><strong id="scNum">0</strong> / <span id="totNum">0</span> Teams</div>
+        </div>
+        <div class="stat-bl" style="text-align:right;">
+            <span class="m">Status</span>
+            <div class="v" id="sysStatus" style="color:#F06543; font-weight:700;">Drafting</div>
+        </div>
+    </div>
+
+    <!-- View: Evaluation / Grade Team -->
+    <div class="card eval-view" id="viewEval" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+            <div style="display:flex; gap:8px;">
+                <button class="btn-ghost" id="prevTeamBtn" style="padding:6px 12px;"><span class="material-icons-round">chevron_left</span> Prev</button>
+                <button class="btn-ghost" id="nextTeamBtn" style="padding:6px 12px;">Next <span class="material-icons-round">chevron_right</span></button>
+            </div>
+            <button class="btn-secondary" id="viewLeaderboardBtn" style="padding:8px 16px; font-size:12px;">View Leaderboard</button>
+        </div>
+        
+        <div class="eval-head">
+            <h1 id="evTeamName">Team Name</h1>
+            <div class="ev-id" id="evTeamId">...</div>
+        </div>
+        
+        <div class="eval-grid">
+            <div class="ev-meta">
+                <label>Project Name</label>
+                <div id="evProjName" class="val"></div>
+                <label style="margin-top:16px;">Description</label>
+                <div id="evDesc" class="val box"></div>
+                <label style="margin-top:16px;">Participants</label>
+                <div id="evMembers" class="val"></div>
+            </div>
+            <div class="ev-score-zone">
+                <label>Assign Score</label>
+                <input type="number" id="evScoreInp" placeholder="0 - 100" min="0" max="100"/>
+                <button class="btn-primary" id="saveDraftBtn" style="background:linear-gradient(135deg, #F06543 0%, #E84D2E 100%); width:100%; justify-content:center; margin-top:12px;">
+                    Save Draft Score
+                </button>
+                <p class="score-warn">This score will not be visible to participants until Final Submission is triggered for all teams.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- View: Leaderboard / Final Submission -->
+    <div class="card leader-view" id="viewLeaderboard" style="display:none;">
+        <button class="btn-ghost" id="backToEvalBtn" style="margin-bottom:16px; padding:6px 12px;"><span class="material-icons-round">arrow_back</span> Back to Teams</button>
+        <div class="lead-head">
+            <div>
+                <h2>Evaluation Complete</h2>
+                <p>All teams have been scored. Review the final leaderboard before locking.</p>
+            </div>
+            <button class="btn-primary" id="finalSubmitBtn" style="background:#0EA5A0;">
+                <span class="material-icons-round">lock</span> Submit Final Ledger
+            </button>
+        </div>
+
+        <table class="lead-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Team Name</th>
+                    <th>Project Concept</th>
+                    <th style="text-align:right;">Draft Score</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboardBody">
+                <!-- populated dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script src="judge.js"></script>
+</body>
+</html>

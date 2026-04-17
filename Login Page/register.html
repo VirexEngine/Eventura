@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventura OS — Create Account</title>
+  <meta name="description" content="Register for Eventura OS — join your team and get secure portal access." />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <link rel="stylesheet" href="register.css" />
+</head>
+
+<body>
+
+  <!-- Animated dot-grid canvas -->
+  <canvas id="dotGrid"></canvas>
+
+  <!-- Radial glow orbs -->
+  <div class="glow glow-cyan"></div>
+  <div class="glow glow-purple"></div>
+
+  <!-- OS Top Bar -->
+  <div class="os-bar">
+    <div class="os-brand">
+      <div class="os-logo"><span class="material-icons-round">bolt</span></div>
+      <div class="os-name">Eventura<span class="os-ver">OS v2.1</span></div>
+    </div>
+    <div class="os-status">
+      <span class="status-dot"></span>
+      <span class="status-text">SECURE · ENCRYPTED</span>
+    </div>
+  </div>
+
+  <!-- Main Card -->
+  <div class="card-border-wrap">
+    <div class="card">
+
+      <div class="success-overlay" id="successOverlay">
+        <div class="success-ring"><span class="material-icons-round">check</span></div>
+        <h2>Welcome to <span>Eventura!</span></h2>
+        <p>Your account has been created. You're all set to join your team.</p>
+        <button class="btn-primary" onclick="window.location.href='login.html'" style="margin-top:4px">
+          <span>Go to Sign In</span>
+          <span class="material-icons-round">arrow_forward</span>
+        </button>
+      </div>
+
+      <!-- Card Header -->
+      <div class="card-head">
+        <div class="card-head-text">
+          <h1>Create Account<span class="accent-dot">.</span></h1>
+          <p>Join Eventura OS — fill in your team details below</p>
+        </div>
+        <div class="step-badge">
+          <div class="step-pills">
+            <div class="pill active" id="p1"></div>
+            <div class="pill idle" id="p2"></div>
+            <div class="pill idle" id="p3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Body -->
+      <div class="card-body">
+
+        <!-- Avatar -->
+        <label class="avatar-row" for="photoInput">
+          <div class="avatar-ring">
+            <div class="avatar-circle" id="avatarCircle">
+              <span class="material-icons-round" id="avatarIcon">person</span>
+              <img id="avatarImg" src="" alt="Profile" />
+            </div>
+            <div class="avatar-edit-badge"><span class="material-icons-round">edit</span></div>
+          </div>
+          <div class="avatar-info">
+            <strong>Profile Photo</strong>
+            <span>Click to upload · JPG, PNG · Max 5 MB</span>
+          </div>
+          <div class="avatar-btn">
+            <span class="material-icons-round">upload</span>
+            Upload
+          </div>
+          <input type="file" id="photoInput" accept="image/*" />
+        </label>
+
+        <form id="regForm" novalidate>
+
+          <!-- Personal Info -->
+          <div class="section-head">
+            <div class="section-head-label">Personal Info</div>
+            <div class="section-head-line"></div>
+          </div>
+
+          <div class="form-grid">
+
+            <!-- Full Name -->
+            <div class="tf fg-full">
+              <div class="tf-label">
+                <span class="material-icons-round">person_outline</span>
+                Full Name <span class="req">*</span>
+              </div>
+              <div class="tf-wrap">
+                <input type="text" id="name" placeholder="e.g. Arjun Sharma" autocomplete="name" />
+                <span class="material-icons-round tf-lead">badge</span>
+                <div class="tf-glow"></div>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="tf fg-full">
+              <div class="tf-label">
+                <span class="material-icons-round">mail_outline</span>
+                Email Address <span class="req">*</span>
+              </div>
+              <div class="tf-wrap">
+                <input type="email" id="email" placeholder="you@college.edu" autocomplete="email" />
+                <span class="material-icons-round tf-lead">alternate_email</span>
+                <div class="tf-glow"></div>
+              </div>
+            </div>
+
+            <!-- College ID -->
+            <div class="tf">
+              <div class="tf-label">
+                <span class="material-icons-round">school</span>
+                College ID <span class="req">*</span>
+              </div>
+              <div class="tf-wrap">
+                <input type="text" id="collegeId" placeholder="e.g. CS2024001"
+                  style="font-family:var(--f-mono);font-size:13px;letter-spacing:0.05em;" />
+                <span class="material-icons-round tf-lead">fingerprint</span>
+                <div class="tf-glow"></div>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="tf">
+              <div class="tf-label">
+                <span class="material-icons-round">phone_iphone</span>
+                Phone Number <span class="req">*</span>
+              </div>
+              <div class="tf-wrap">
+                <input type="tel" id="phone" placeholder="+91 98765 43210" autocomplete="tel" />
+                <span class="material-icons-round tf-lead">call</span>
+                <div class="tf-glow"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Team & Security -->
+          <div class="section-head" style="margin-top:4px">
+            <div class="section-head-label">Team & Security</div>
+            <div class="section-head-line"></div>
+          </div>
+
+          <div class="form-grid">
+
+            <!-- Team Name -->
+            <div class="tf fg-full">
+              <div class="tf-label">
+                <span class="material-icons-round">groups</span>
+                Team Name <span class="req">*</span>
+              </div>
+              <div class="tf-wrap">
+                <input type="text" id="teamName" placeholder="e.g. Phoenix Coders" list="team-list"
+                  autocomplete="off" />
+                <datalist id="team-list"></datalist>
+                <span class="material-icons-round tf-lead">emoji_flags</span>
+                <div class="tf-glow"></div>
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="tf fg-full">
+              <div class="tf-label">
+                <span class="material-icons-round">lock_outline</span>
+                Password <span class="req">*</span>
+              </div>
+              <div class="tf-wrap has-trail">
+                <input type="password" id="password" placeholder="Min 8 chars · letters + numbers + symbols" />
+                <span class="material-icons-round tf-lead">lock</span>
+                <button type="button" class="tf-trail material-icons-round" id="pwToggle"
+                  tabindex="-1">visibility</button>
+                <div class="tf-glow"></div>
+              </div>
+
+              <!-- Strength Meter -->
+              <div class="pw-strength">
+                <div class="pw-bars">
+                  <div class="pw-bar" id="pb1"></div>
+                  <div class="pw-bar" id="pb2"></div>
+                  <div class="pw-bar" id="pb3"></div>
+                  <div class="pw-bar" id="pb4"></div>
+                </div>
+                <div class="pw-meta">
+                  <div class="pw-label" id="pwLabel" style="color:var(--text-muted)">Enter password</div>
+                  <div class="pw-tips" id="pwTips"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Submit -->
+          <div class="submit-row">
+            <button type="button" class="btn-ghost" onclick="window.location.href='login.html'">Sign in instead</button>
+            <button type="submit" class="btn-primary" id="submitBtn">
+              <span>Create Account</span>
+              <span class="material-icons-round">arrow_forward</span>
+            </button>
+          </div>
+
+          <!-- Social OAuth Signup -->
+          <div class="social-login" style="margin-top:24px;">
+            <div class="section-head">
+              <div class="section-head-line"></div>
+              <div class="section-head-label">Or sign up with</div>
+              <div class="section-head-line"></div>
+            </div>
+            <div class="social-btns">
+              <button type="button" class="btn-social google" onclick="window.location.href='/login/google'">
+                <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
+                <span>Google</span>
+              </button>
+              <button type="button" class="btn-social github" onclick="window.location.href='/login/github'">
+                <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+                <span>GitHub</span>
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Card Footer -->
+      <div class="card-foot">
+        <span class="material-icons-round">verified_user</span>
+        <span>AES-256 encrypted · Zero-trust architecture</span>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="register.js"></script>
+  <script>
+    // Animated dot-grid
+    (function () {
+      const canvas = document.getElementById('dotGrid');
+      const ctx = canvas.getContext('2d');
+      let w, h, cols, rows;
+      const gap = 40;
+      const dotR = 1;
+      let mouse = { x: -1000, y: -1000 };
+      const influence = 120;
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        cols = Math.ceil(w / gap) + 1;
+        rows = Math.ceil(h / gap) + 1;
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const x = c * gap;
+            const y = r * gap;
+            const dx = x - mouse.x;
+            const dy = y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const alpha = dist < influence ? 0.12 + (1 - dist / influence) * 0.35 : 0.08;
+            const radius = dist < influence ? dotR + (1 - dist / influence) * 1.5 : dotR;
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(31, 182, 255, ${alpha})`;
+            ctx.fill();
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+      resize();
+      draw();
+    })();
+  </script>
+</body>
+
+</html>

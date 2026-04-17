@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventura OS — Secure Login</title>
+  <meta name="description" content="Sign in to your Eventura OS account — secure, encrypted portal access." />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <link rel="stylesheet" href="login.css" />
+</head>
+
+<body>
+
+  <!-- Animated dot-grid canvas -->
+  <canvas id="dotGrid"></canvas>
+
+  <!-- Radial glow orbs -->
+  <div class="glow glow-cyan"></div>
+  <div class="glow glow-purple"></div>
+
+  <!-- OS Top Bar -->
+  <div class="os-bar">
+    <div class="os-brand">
+      <div class="os-logo"><span class="material-icons-round">bolt</span></div>
+      <div class="os-name">Eventura<span class="os-ver">OS v2.1</span></div>
+    </div>
+    <div class="os-status">
+      <span class="status-dot"></span>
+      <span class="status-text">SECURE · ENCRYPTED</span>
+    </div>
+  </div>
+
+  <!-- Main Login Card -->
+  <div class="card-border-wrap">
+    <div class="card">
+
+      <!-- Card Header -->
+      <div class="card-head">
+        <div class="card-head-text">
+          <h1>Welcome Back<span class="accent-dot">.</span></h1>
+          <p>Enter your credentials to access the portal</p>
+        </div>
+        <div class="card-head-icon">
+          <span class="material-icons-round">shield</span>
+        </div>
+      </div>
+
+      <!-- Card Body -->
+      <div class="card-body">
+        <form id="loginForm" novalidate>
+          <div class="form-grid">
+
+            <!-- College ID -->
+            <div class="tf fg-full">
+              <div class="tf-label">
+                <span class="material-icons-round">fingerprint</span>
+                College ID <span class="req">*</span>
+              </div>
+              <div class="tf-wrap">
+                <input type="text" id="collegeId" placeholder="e.g. CS2024001"
+                  style="font-family:var(--f-mono);font-size:13px;letter-spacing:0.05em;" />
+                <span class="material-icons-round tf-lead">fingerprint</span>
+                <div class="tf-glow"></div>
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="tf fg-full">
+              <div class="tf-label">
+                <span class="material-icons-round">lock_outline</span>
+                Password <span class="req">*</span>
+              </div>
+              <div class="tf-wrap has-trail">
+                <input type="password" id="password" placeholder="Enter your password" />
+                <span class="material-icons-round tf-lead">lock</span>
+                <button type="button" class="tf-trail material-icons-round" id="pwToggle"
+                  tabindex="-1">visibility</button>
+                <div class="tf-glow"></div>
+              </div>
+            </div>
+
+            <!-- Form Options -->
+            <div class="form-opts">
+              <label class="remember-lbl">
+                <input type="checkbox" id="rememberMe">
+                <span class="chk-box">
+                  <span class="material-icons-round" style="font-size:12px;opacity:0;">check</span>
+                </span>
+                Remember me
+              </label>
+              <a href="#" class="forgot-link" id="forgotPassword">Forgot password?</a>
+            </div>
+
+            <!-- Error Status -->
+            <div id="loginStatus" class="login-status" style="display:none;">
+              <span class="material-icons-round">error_outline</span>
+              <span id="loginStatusText"></span>
+            </div>
+
+            <!-- Submit -->
+            <div class="submit-row">
+              <button type="button" class="btn-ghost" onclick="window.location.href='register.html'">Create
+                account</button>
+              <div style="display: flex; gap: 8px;">
+                <button type="button" class="btn-primary" id="faceLoginBtn" style="background: rgba(255, 255, 255, 0.05); padding: 13px; color: var(--neon-cyan); box-shadow: none;">
+                  <span class="material-icons-round">face</span>
+                </button>
+                <button type="submit" class="btn-primary" id="loginBtn">
+                  <span>Sign In</span>
+                  <span class="material-icons-round">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Social OAuth Login -->
+            <div class="social-login">
+              <div class="section-head">
+                <div class="section-head-line"></div>
+                <div class="section-head-label">Or continue with</div>
+                <div class="section-head-line"></div>
+              </div>
+              <div class="social-btns">
+                <button type="button" class="btn-social google" onclick="window.location.href='/login/google'">
+                  <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
+                  <span>Google</span>
+                </button>
+                <button type="button" class="btn-social github" onclick="window.location.href='/login/github'">
+                  <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+                  <span>GitHub</span>
+                </button>
+              </div>
+            </div>
+
+        </form>
+      </div>
+
+      <!-- Card Footer -->
+      <div class="card-foot">
+        <span class="material-icons-round">verified_user</span>
+        <span>AES-256 encrypted · Zero-trust architecture</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Face Scan Modal -->
+  <div id="faceScanModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="modal-title">
+          <span class="material-icons-round">face</span>
+          <h3>Biometric Core</h3>
+        </div>
+        <button class="btn-icon" id="closeFaceModal">
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="faceScanStatus" class="scan-status-text">Initializing neuro-optical scanner...</p>
+        <div class="video-wrap">
+          <video id="webcamVideo" autoplay muted playsinline></video>
+          <canvas id="faceCanvas"></canvas>
+          <div class="scan-line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.js"></script>
+  <script src="login.js"></script>
+  <script>
+    // Animated dot-grid
+    (function () {
+      const canvas = document.getElementById('dotGrid');
+      const ctx = canvas.getContext('2d');
+      let w, h, cols, rows;
+      const gap = 40;
+      const dotR = 1;
+      let mouse = { x: -1000, y: -1000 };
+      const influence = 120;
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        cols = Math.ceil(w / gap) + 1;
+        rows = Math.ceil(h / gap) + 1;
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const x = c * gap;
+            const y = r * gap;
+            const dx = x - mouse.x;
+            const dy = y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const alpha = dist < influence ? 0.12 + (1 - dist / influence) * 0.35 : 0.08;
+            const radius = dist < influence ? dotR + (1 - dist / influence) * 1.5 : dotR;
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(31, 182, 255, ${alpha})`;
+            ctx.fill();
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+      resize();
+      draw();
+    })();
+  </script>
+</body>
+
+</html>

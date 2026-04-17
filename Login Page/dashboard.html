@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Eventura OS Mini — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link rel="stylesheet" href="dashboard.css"/>
+</head>
+<body>
+
+<!-- OS Top Bar -->
+<div class="os-bar">
+  <div class="os-brand">
+    <div class="os-logo"><span class="material-icons-round">bolt</span></div>
+    <div class="os-name">Eventura OS <span>mini v2.1</span></div>
+  </div>
+  <button class="logout-btn" id="logoutBtn">
+    <span class="material-icons-round">logout</span> Logout
+  </button>
+</div>
+
+<div class="dash-grid">
+  
+  <!-- Left Column: User & Team Roster -->
+  <div class="dash-col dash-left">
+    
+    <!-- Profile Card -->
+    <div class="card profile-card">
+      <div class="profile-header">
+        <div class="avatar-circle">
+          <img id="userPhoto" src="" alt="User" style="display:none;"/>
+        </div>
+        <div class="profile-info">
+          <h2 id="userName">Loading...</h2>
+          <span id="userCollegeId">...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Roster Card -->
+    <div class="card roster-card">
+      <div class="card-title">
+        <span class="material-icons-round">groups</span>
+        <h3>Teammates</h3>
+      </div>
+      <div class="roster-list" id="rosterList">
+        <!-- populated by js -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right Column: Project Details -->
+  <div class="dash-col dash-right">
+    
+    <!-- Team Info Card -->
+    <div class="card team-card">
+      <div class="card-stripe"></div>
+      
+      <div class="team-header">
+        <div style="flex:1;">
+          <h1 id="teamNameTitle">Team Name</h1>
+          <div class="team-score">Current Score: <strong id="teamScore">0</strong></div>
+        </div>
+        <div class="team-qr-box" style="margin-right:20px; display:none; cursor:pointer; transition:transform 0.2s;" id="qrBox" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          <img id="qrImg" src="" alt="Team QR" style="width:72px; height:72px; border-radius:8px; border:1px solid var(--border); padding:4px; background:#fff;"/>
+          <div style="font-family:var(--f-mono); font-size:10px; color:var(--text-muted); text-align:center; margin-top:4px;">Team ID</div>
+        </div>
+        <button class="btn-ghost" id="editProjectBtn" style="align-self:flex-start;">
+          <span class="material-icons-round">edit</span> Edit Details
+        </button>
+      </div>
+
+      <!-- Project details view mode -->
+      <div class="project-details" id="projectDetailsView">
+        <div class="data-group">
+          <label>Project Name</label>
+          <div class="data-val" id="dispProjectName">Not set</div>
+        </div>
+        <div class="data-group">
+          <label>Description</label>
+          <div class="data-val description-val" id="dispDescription">No description available.</div>
+        </div>
+      </div>
+
+      <!-- Project details edit mode -->
+      <div class="project-edit" id="projectEditView" style="display:none;">
+        <form id="projectForm">
+          <div class="tf">
+            <div class="tf-label">Project Name</div>
+            <div class="tf-wrap">
+              <input type="text" id="inpProjectName" placeholder="Enter project name"/>
+            </div>
+          </div>
+          <div class="tf" style="margin-top:16px;">
+            <div class="tf-label">Description</div>
+            <div class="tf-wrap" style="height:auto;">
+              <textarea id="inpDescription" placeholder="Enter a short description about your project" rows="4"></textarea>
+            </div>
+          </div>
+          <div class="edit-actions">
+            <button type="button" class="btn-ghost" id="cancelEditBtn">Cancel</button>
+            <button type="submit" class="btn-primary" id="saveProjectBtn">Save Changes</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- QR Modal -->
+<div class="qr-modal-overlay" id="qrModalOverlay">
+  <div class="qr-modal-card" onclick="event.stopPropagation()">
+    <button class="qr-modal-close" id="qrModalClose"><span class="material-icons-round" style="font-size:18px;">close</span></button>
+    <img id="qrModalImg" class="qr-modal-img" src="" alt="Zoomed QR Code"/>
+    <div class="qr-modal-id" id="qrModalId">...</div>
+    <div style="font-size:12px; font-weight:500; color:var(--text-muted);">Scan to join team</div>
+  </div>
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

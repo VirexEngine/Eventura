@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Official Judge Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+<link rel="stylesheet" href="judge.css">
+</head>
+<body class="judge-bg">
+
+<div class="card login-card">
+  <div class="card-stripe" style="background: linear-gradient(90deg, #F06543 0%, #FFB142 50%, #F5CE42 100%);"></div>
+  <div class="card-head">
+    <div class="card-head-text">
+      <h1 style="font-size: 22px;">Judge Access <span class="material-icons-round" style="font-size:24px; color:#F06543; vertical-align:middle;">admin_panel_settings</span></h1>
+      <p>Authorized personnel only. Please sign in to access the secure grading ledger.</p>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <form id="judgeLoginForm">
+      <div class="tf" style="margin-bottom:16px;">
+        <div class="tf-label">Username</div>
+        <div class="tf-wrap">
+          <input type="text" id="jUser" placeholder="Enter username" autocomplete="off"/>
+        </div>
+      </div>
+      <div class="tf" style="margin-bottom:28px;">
+        <div class="tf-label">Secret Key</div>
+        <div class="tf-wrap">
+          <input type="password" id="jPass" placeholder="Enter administrative password"/>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%; justify-content:center; background:linear-gradient(135deg, #F06543 0%, #E84D2E 100%);" id="jBtn">
+        <span>Authenticate Phase</span>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+document.getElementById('judgeLoginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('jBtn');
+    btn.textContent = 'Verifying...'; btn.disabled = true;
+    
+    fetch('/judge_login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            username: document.getElementById('jUser').value,
+            password: document.getElementById('jPass').value
+        })
+    }).then(res => res.json()).then(data => {
+        if(data.success) {
+            window.location.href = '/judge.html';
+        } else {
+            alert('Invalid credentials.');
+        }
+    }).catch(err => alert('Network error')).finally(() => {
+        btn.textContent = 'Authenticate Phase'; btn.disabled = false;
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Sarah Chen",
+      "email": "newemail@eventpro.com",
+      "password": "organizer123",
+      "role": "organizer",
+      "avatar": ""
+    },
+    {
+      "id": "2",
+      "name": "Dr. pratyush",
+      "email": "alex@judge.com",
+      "password": "judge123",
+      "role": "judge",
+      "avatar": ""
+    },
+    {
+      "id": "3",
+      "name": "team gama",
+      "email": "alpha@team.com",
+      "password": "team123",
+      "role": "team",
+      "teamId": "1",
+      "avatar": ""
+    }
+  ],
+  "teams": [
+    {
+      "id": "1",
+      "name": "Team Alpha",
+      "members": [
+        {
+          "id": "m1",
+          "name": "pratyyush",
+          "role": "Team Lead",
+          "email": "alice@team.com",
+          "contribution": "Project architecture and backend"
+        },
+        {
+          "id": "m2",
+          "name": "Bob Chen",
+          "role": "Frontend Dev",
+          "email": "bob@team.com",
+          "contribution": "UI design and React components"
+        }
+      ]
+    }
+  ]
+}

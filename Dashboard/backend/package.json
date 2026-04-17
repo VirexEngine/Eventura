@@ -1,0 +1,11 @@
+{
+  "name": "eventflow-backend",
+  "version": "1.0.0",
+  "description": "Simple json-server backend for EventFlow Pro",
+  "scripts": {
+    "start": "json-server --watch db.json --port 3001 --host 0.0.0.0"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4"
+  }
+}
